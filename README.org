@@ -6,4 +6,4 @@
 This is the tick tac toe game written in elisp.
 It is inspired by the [[https://www.youtube.com/watch?v=gk39mp8Vy4M&list=PL8tzorAO7s0he-pp7Y_JDl7-Kz2Qlr_Pj&index=16][thoughtBot Emacs Meet up]].
 
-file:./snapshot/init-game.png
+[[./snapshot/init-game.png]]
