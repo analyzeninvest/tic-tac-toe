@@ -8,6 +8,7 @@
   (text-scale-increase 5)
   (tic-tac-toe-init)
   (linum-mode -1)
+  (hl-line-mode -1)
   )
 
 (defconst tic-tac-toe-player-1 "X")
@@ -123,7 +124,7 @@
       (tic-tac-toe-toggle-player))
     (tic-tac-toe-print-board)
     (when (tic-tac-toe-game-over)
-      (message tic-tac-toe-end-message)
+      (message "%s" tic-tac-toe-end-message)
       )
     (tic-tac-toe-toggle-player)
     )
@@ -168,7 +169,7 @@
 	  (tic-tac-toe-row-win)
 	  (tic-tac-toe-col-win)
 	  )
-      (progn (setq tic-tac-toe-end-message (concat "Congratulatilations!!! " tic-tac-toe-current-player " have won the game!!!" ))
+      (progn (setq tic-tac-toe-end-message (concat "Congratulations!!! " tic-tac-toe-current-player " have won the game!!!" ))
 	     t
 	     )
     nil
