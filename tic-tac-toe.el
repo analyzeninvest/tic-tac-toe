@@ -1,4 +1,4 @@
-;; this is a tic-tac-toe game written in emac lisp
+;; this is a tic-tac-toe game written in Emacs lisp
 
 (defun tic-tac-toe ()
   "Start a new game of tic tac toe"
