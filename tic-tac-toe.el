@@ -180,14 +180,17 @@
 (defun tic-tac-toe-if-draw ()
   "Check if game is draw?"
   (unless (tic-tac-toe-if-win)
-    (let ((tic-tac-toe-game-ongoing t))
+    (let ((tic-tac-toe-game-ongoing t) (tic-tac-toe-count-init 0))
       (dotimes (row tic-tac-toe-row-or-col-size)
 	(dotimes (col tic-tac-toe-row-or-col-size)
 	  (if (equal (tic-tac-toe-get-square row col) tic-tac-toe-before-move)
-	      (setq tic-tac-toe-game-ongoing t)
-	    (setq tic-tac-toe-game-ongoing nil)
+	      (setq tic-tac-toe-count-init (+ 1 tic-tac-toe-count-init))
 	    )
 	  )
+	)
+      (if (equal tic-tac-toe-count-init 0)
+	  (setq tic-tac-toe-game-ongoing nil)
+	(setq tic-tac-toe-game-ongoing t)
 	)
       (if (equal tic-tac-toe-game-ongoing t)
 	  nil
@@ -198,18 +201,6 @@
     )
   )
 
-
-(defun tic-tac-toe-diagonal-win ()
-  "Check if diagonal win?"
-  (if (or (tic-tac-toe-compare-3-char 0 0 1 1 2 2)
-	  (tic-tac-toe-compare-3-char 1 2 1 1 2 0)
-	  )
-      (progn (message "diagonal win")
-	     t)
-    nil
-    )
-  )
-
 (defun tic-tac-toe-compare-3-char (row1 col1 row2 col2 row3 col3)
   "Compare 3 squares in the board."
   (if (and (equal tic-tac-toe-current-player (tic-tac-toe-get-square row1 col1))
@@ -217,6 +208,18 @@
 	   (equal (tic-tac-toe-get-square row3 col3) (tic-tac-toe-get-square row1 col1))
 	   )
       t
+    nil
+    )
+  )
+
+
+(defun tic-tac-toe-diagonal-win ()
+  "Check if diagonal win?"
+  (if (or (tic-tac-toe-compare-3-char 0 0 1 1 2 2)
+	  (tic-tac-toe-compare-3-char 0 2 1 1 2 0)
+	  )
+      (progn (message "diagonal win")
+	     t)
     nil
     )
   )
