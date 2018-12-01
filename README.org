@@ -44,13 +44,13 @@ Picture better explains than word:
 
 * Some Known Problems 
 
-** TODO Bugs:
+** DONE Bugs:
 
-   1. [ ] When the game is ended, can still play the game.
-   2. [X] One specific case for false message for draw
+   1. When the game is ended, can still play the game.
+   2. One specific case for false message for draw
       
 ** TODO Improvements:
 
- 1. [ ] Make a user input for restarting the game.
- 2. [ ] Make some color coding for player, board & win line.
+ 1. Make a user input for restarting the game.
+ 2. Make some color coding for player, board & win line.
 

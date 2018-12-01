@@ -1,4 +1,42 @@
-;; this is a tic-tac-toe game written in Emacs lisp
+;;; tic-tac-toe.el --- play tic-tack-toe in Emacs
+
+;; Copyright 2018 Aritra Bhattacharjee
+
+;; Author: Aritra Bhattacharjee <analyzeninvest@protonmail.com>
+;; Version: 2014.01.12
+;; URL: https://github.com/analyzeninvest/tic-tac-toe
+
+;; This file is not part of GNU Emacs
+
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+;;; Commentary:
+
+;; This program is an implementation of tic-tac-toe for Emacs.
+;; To begin playing, call `M-x tic-tac-toe`, then use the arrow keys,
+;; to move within the board.
+
+;; Press SPACE-BAR to mark the square in the board. 'X' or 'O' is
+;; maked alternatively.
+
+;; When either of the player 'X' or 'O' makes 3 cosiquitive lines,
+;; either in a row/column/diagonal, smae player is won. Else if all
+;; the squares are filled but no consiquitive 3 row/col/diagonal
+;; line has same player, the match is a draw.
+
+;;; Code:
 
 (defun tic-tac-toe ()
   "Start a new game of tic tac toe"
@@ -11,16 +49,6 @@
   (hl-line-mode -1)
   )
 
-(defconst tic-tac-toe-player-1 "X")
-(defconst tic-tac-toe-player-2 "O")
-(defvar tic-tac-toe-board nil "Board itself.")
-(defvar tic-tac-toe-current-player tic-tac-toe-player-1 "tic-tac-toe get/set current player")
-(defconst tic-tac-toe-row-or-col-size 3 "bord row & col size")
-(defconst tic-tac-toe-before-move ".")
-(defconst tic-tac-toe-seperating-char-row "|")
-(defconst tic-tac-toe-seperating-char-newline-odd "-")
-(defconst tic-tac-toe-seperating-char-newline-even "+")
-(defconst tic-tac-toe-game-over-status nil)
 
 (define-derived-mode tic-tac-toe-mode special-mode "tic-tac-toe"
   (define-key tic-tac-toe-mode-map (kbd "SPC") 'tic-tac-toe-mark)
@@ -29,6 +57,7 @@
   (define-key tic-tac-toe-mode-map (kbd "<up>") 'tic-tac-toe-up-move)
   (define-key tic-tac-toe-mode-map (kbd "<down>") 'tic-tac-toe-down-move)
   )
+
 
 (defun tic-tac-toe-left-move ()
   "move left"
@@ -49,11 +78,13 @@
     )
   )
 
+
 (defun tic-tac-toe-up-move ()
   "move up"
   (interactive)
   (previous-line 2)
   )
+
 
 (defun tic-tac-toe-down-move ()
   "move down"
@@ -61,8 +92,19 @@
   (next-line 2)
   )
 
+
 (defun tic-tac-toe-init ()
   "Init game"
+  (defconst tic-tac-toe-player-1 "X")
+  (defconst tic-tac-toe-player-2 "O")
+  (defvar tic-tac-toe-board nil "Board itself.")
+  (defvar tic-tac-toe-current-player tic-tac-toe-player-1 "tic-tac-toe get/set current player")
+  (defconst tic-tac-toe-row-or-col-size 3 "bord row & col size")
+  (defconst tic-tac-toe-before-move ".")
+  (defconst tic-tac-toe-seperating-char-row "|")
+  (defconst tic-tac-toe-seperating-char-newline-odd "-")
+  (defconst tic-tac-toe-seperating-char-newline-even "+")
+  (defconst tic-tac-toe-game-over-status nil)
   (setq tic-tac-toe-board (make-vector (* tic-tac-toe-row-or-col-size tic-tac-toe-row-or-col-size) tic-tac-toe-before-move))
   (tic-tac-toe-print-board)
   )
@@ -124,7 +166,7 @@
       (tic-tac-toe-toggle-player))
     (tic-tac-toe-print-board)
     (when (tic-tac-toe-game-over)
-      (message "%s" tic-tac-toe-end-message)
+      (tic-tac-toe-game-end-sequence)
       )
     (tic-tac-toe-toggle-player)
     )
@@ -169,7 +211,7 @@
 	  (tic-tac-toe-row-win)
 	  (tic-tac-toe-col-win)
 	  )
-      (progn (setq tic-tac-toe-end-message (concat "Congratulations!!! " tic-tac-toe-current-player " have won the game!!!" ))
+      (progn (setq tic-tac-toe-end-message (concat "Congratulations!!! " tic-tac-toe-current-player " have won the game!!! Play again? " ))
 	     t
 	     )
     nil
@@ -194,7 +236,7 @@
 	)
       (if (equal tic-tac-toe-game-ongoing t)
 	  nil
-	(progn (setq tic-tac-toe-end-message "Match is a Draw!!!")
+	(progn (setq tic-tac-toe-end-message "Match is a Draw!!! Play again? ")
 	       t)
 	)
       )
@@ -251,9 +293,13 @@
   )
 
 
-(defun tic-tac-toe-restart-game ()
-  "This is to restart the game when finished."
-  (interactive)
-  (kill-buffer "tic-tac-toe")
-  (tic-tac-toe)
+(defun tic-tac-toe-game-end-sequence ()
+  "this is the sequence for end game."
+  (if (y-or-n-p tic-tac-toe-end-message)
+      (tic-tac-toe-init)
+    (kill-buffer "tic-tac-toe")
+      )
   )
+
+
+(provide 'tic-tac-toe-game)
