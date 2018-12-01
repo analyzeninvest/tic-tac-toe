@@ -3,7 +3,7 @@
 ;; Copyright 2018 Aritra Bhattacharjee
 
 ;; Author: Aritra Bhattacharjee <analyzeninvest@protonmail.com>
-;; Version: 2014.01.12
+;; Version: 2018.01.12
 ;; URL: https://github.com/analyzeninvest/tic-tac-toe
 
 ;; This file is not part of GNU Emacs
