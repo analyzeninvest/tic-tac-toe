@@ -44,7 +44,7 @@ Picture better explains than word:
 
 * Some Known Problems 
 
-** DONE Bugs:
+** DONE Bugs (FIXED):
 
    1. When the game is ended, can still play the game.
    2. One specific case for false message for draw
