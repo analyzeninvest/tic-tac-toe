@@ -29,11 +29,11 @@
 ;; to move within the board.
 
 ;; Press SPACE-BAR to mark the square in the board. 'X' or 'O' is
-;; maked alternatively.
+;; marked alternatively.
 
-;; When either of the player 'X' or 'O' makes 3 cosiquitive lines,
-;; either in a row/column/diagonal, smae player is won. Else if all
-;; the squares are filled but no consiquitive 3 row/col/diagonal
+;; When either of the player 'X' or 'O' makes 3 consecutive lines,
+;; either in a row/column/diagonal, same player is won. Else if all
+;; the squares are filled but no consecutive 3 row/col/diagonal
 ;; line has same player, the match is a draw.
 
 ;;; Code:
