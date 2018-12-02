@@ -62,6 +62,7 @@
 (defconst tic-tac-toe-game-over-status nil)
 (defvar tic-tac-toe-end-message "")
 
+
 (define-derived-mode tic-tac-toe-mode special-mode "tic-tac-toe"
   (define-key tic-tac-toe-mode-map (kbd "SPC") 'tic-tac-toe-mark)
   (define-key tic-tac-toe-mode-map (kbd "<left>") 'tic-tac-toe-left-move)
