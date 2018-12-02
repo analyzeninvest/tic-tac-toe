@@ -14,6 +14,10 @@ It is inspired by the [[https://www.youtube.com/watch?v=gk39mp8Vy4M&list=PL8tzor
 
 [[https://www.reddit.com/r/emacs/comments/a21rnw/tic_tac_toe_game_in_elisp_or_how_i_stay/][Reddit]]
 
+[[https://www.youtube.com/watch?v=VIGB7UOHacc][YouTube-update-1]]
+
+
+
 * features
 
 The game has various features as:
