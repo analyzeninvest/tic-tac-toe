@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t -*-
 ;;; tic-tac-toe.el --- play tic-tack-toe in Emacs
 
 ;; Copyright 2018 Aritra Bhattacharjee
@@ -49,6 +50,17 @@
   (hl-line-mode -1)
   )
 
+(defconst tic-tac-toe-player-1 "X")
+(defconst tic-tac-toe-player-2 "O")
+(defvar tic-tac-toe-board nil "Board itself.")
+(defvar tic-tac-toe-current-player tic-tac-toe-player-1 "tic-tac-toe get/set current player")
+(defconst tic-tac-toe-row-or-col-size 3 "bord row & col size")
+(defconst tic-tac-toe-before-move ".")
+(defconst tic-tac-toe-seperating-char-row "|")
+(defconst tic-tac-toe-seperating-char-newline-odd "-")
+(defconst tic-tac-toe-seperating-char-newline-even "+")
+(defconst tic-tac-toe-game-over-status nil)
+(defvar tic-tac-toe-end-message "")
 
 (define-derived-mode tic-tac-toe-mode special-mode "tic-tac-toe"
   (define-key tic-tac-toe-mode-map (kbd "SPC") 'tic-tac-toe-mark)
@@ -82,29 +94,21 @@
 (defun tic-tac-toe-up-move ()
   "move up"
   (interactive)
-  (previous-line 2)
+  ;; (previous-line 2)
+  (forward-line -2)
   )
 
 
 (defun tic-tac-toe-down-move ()
   "move down"
   (interactive)
-  (next-line 2)
+  ;; (next-line 2)
+  (forward-line 2)
   )
 
 
 (defun tic-tac-toe-init ()
   "Init game"
-  (defconst tic-tac-toe-player-1 "X")
-  (defconst tic-tac-toe-player-2 "O")
-  (defvar tic-tac-toe-board nil "Board itself.")
-  (defvar tic-tac-toe-current-player tic-tac-toe-player-1 "tic-tac-toe get/set current player")
-  (defconst tic-tac-toe-row-or-col-size 3 "bord row & col size")
-  (defconst tic-tac-toe-before-move ".")
-  (defconst tic-tac-toe-seperating-char-row "|")
-  (defconst tic-tac-toe-seperating-char-newline-odd "-")
-  (defconst tic-tac-toe-seperating-char-newline-even "+")
-  (defconst tic-tac-toe-game-over-status nil)
   (setq tic-tac-toe-board (make-vector (* tic-tac-toe-row-or-col-size tic-tac-toe-row-or-col-size) tic-tac-toe-before-move))
   (tic-tac-toe-print-board)
   )
@@ -131,7 +135,8 @@
 	(insert "\n")
 	)
       )
-    (beginning-of-buffer)
+    ;; (beginning-of-buffer)
+    (goto-char (point-min))
     )
 
 
@@ -295,10 +300,21 @@
 
 (defun tic-tac-toe-game-end-sequence ()
   "this is the sequence for end game."
+  (tic-tac-toe-reset-variables)
   (if (y-or-n-p tic-tac-toe-end-message)
       (tic-tac-toe-init)
     (kill-buffer "tic-tac-toe")
-      )
+    )
+  )
+
+
+(defun tic-tac-toe-reset-variables ()
+  "reset all variables."
+  (setq tic-tac-toe-player-1 "X")
+  (setq tic-tac-toe-player-2 "O")
+  (setq tic-tac-toe-board nil)
+  (setq tic-tac-toe-current-player tic-tac-toe-player-2)
+  (setq tic-tac-toe-game-over-status nil)
   )
 
 
