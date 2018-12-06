@@ -62,6 +62,9 @@
 (defconst tic-tac-toe-game-over-status nil)
 (defvar tic-tac-toe-end-message "")
 
+(defface seperating-face '((t . (:foreground "gray"))) "Face for seperating char" :group 'tic-tac-toe-faces)
+(defface player-1-face '((t . (:foreground "red"))) "Face for seperating char" :group 'tic-tac-toe-faces)
+(defface player-2-face '((t . (:foreground "blue"))) "Face for seperating char" :group 'tic-tac-toe-faces)
 
 (define-derived-mode tic-tac-toe-mode special-mode "tic-tac-toe"
   (define-key tic-tac-toe-mode-map (kbd "SPC") 'tic-tac-toe-mark)
@@ -122,6 +125,7 @@
       (dotimes (row tic-tac-toe-row-or-col-size)
 	(dotimes (col tic-tac-toe-row-or-col-size)
 	  (insert (tic-tac-toe-get-square row col))
+	  (tic-tac-toe-set-faces)
 	  (if (not (equal col (- tic-tac-toe-row-or-col-size 1))) (insert tic-tac-toe-seperating-char-row))
 	  )
 	(insert "\n")
@@ -135,10 +139,19 @@
 	  )
 	(insert "\n")
 	)
+      (tic-tac-toe-set-faces)
       )
     ;; (beginning-of-buffer)
     (goto-char (point-min))
     )
+
+(defun tic-tac-toe-set-faces ()
+  "put faces in the board"
+  (put-text-property 0 (length tic-tac-toe-seperating-char-row) 'font-lock-face '(:foreground "steel blue") tic-tac-toe-seperating-char-row)
+  (put-text-property 0 (length tic-tac-toe-seperating-char-newline-odd) 'font-lock-face '(:foreground "steel blue") tic-tac-toe-seperating-char-newline-odd)
+  (put-text-property 0 (length tic-tac-toe-seperating-char-newline-even) 'font-lock-face '(:foreground "steel blue") tic-tac-toe-seperating-char-newline-even)
+  (put-text-property 0 (length tic-tac-toe-player-1) 'font-lock-face '(:foreground "red") tic-tac-toe-player-1)
+  (put-text-property 0 (length tic-tac-toe-player-2) 'font-lock-face '(:foreground "green") tic-tac-toe-player-2))
 
 
 (defun tic-tac-toe-get-square (row col)
