@@ -62,9 +62,6 @@
 (defconst tic-tac-toe-game-over-status nil)
 (defvar tic-tac-toe-end-message "")
 
-(defface seperating-face '((t . (:foreground "gray"))) "Face for seperating char" :group 'tic-tac-toe-faces)
-(defface player-1-face '((t . (:foreground "red"))) "Face for seperating char" :group 'tic-tac-toe-faces)
-(defface player-2-face '((t . (:foreground "blue"))) "Face for seperating char" :group 'tic-tac-toe-faces)
 
 (define-derived-mode tic-tac-toe-mode special-mode "tic-tac-toe"
   (define-key tic-tac-toe-mode-map (kbd "SPC") 'tic-tac-toe-mark)
@@ -146,12 +143,13 @@
     )
 
 (defun tic-tac-toe-set-faces ()
-  "put faces in the board"
+  "Put faces in the board"
   (put-text-property 0 (length tic-tac-toe-seperating-char-row) 'font-lock-face '(:foreground "steel blue") tic-tac-toe-seperating-char-row)
   (put-text-property 0 (length tic-tac-toe-seperating-char-newline-odd) 'font-lock-face '(:foreground "steel blue") tic-tac-toe-seperating-char-newline-odd)
   (put-text-property 0 (length tic-tac-toe-seperating-char-newline-even) 'font-lock-face '(:foreground "steel blue") tic-tac-toe-seperating-char-newline-even)
   (put-text-property 0 (length tic-tac-toe-player-1) 'font-lock-face '(:foreground "red") tic-tac-toe-player-1)
-  (put-text-property 0 (length tic-tac-toe-player-2) 'font-lock-face '(:foreground "green") tic-tac-toe-player-2))
+  (put-text-property 0 (length tic-tac-toe-player-2) 'font-lock-face '(:foreground "green") tic-tac-toe-player-2)
+  )
 
 
 (defun tic-tac-toe-get-square (row col)
@@ -262,13 +260,14 @@
     )
   )
 
+
 (defun tic-tac-toe-compare-3-char (row1 col1 row2 col2 row3 col3)
   "Compare 3 squares in the board."
   (if (and (equal tic-tac-toe-current-player (tic-tac-toe-get-square row1 col1))
 	   (equal (tic-tac-toe-get-square row2 col2) (tic-tac-toe-get-square row1 col1))
 	   (equal (tic-tac-toe-get-square row3 col3) (tic-tac-toe-get-square row1 col1))
 	   )
-      t
+       t
     nil
     )
   )
